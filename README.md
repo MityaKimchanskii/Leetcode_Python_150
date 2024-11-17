@@ -198,5 +198,31 @@ class Solution:
 
         
 ```
+13. Product of Array Except Self
+    Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except             nums[i].
+    The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+    You must write an algorithm that runs in O(n) time and without using the division operation.
 
+```python
+
+    class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        answer = [1] * n  # Initialize the result array with 1s
+
+        # Compute prefix products
+        prefix = 1
+        for i in range(n):
+            answer[i] = prefix  # Store the prefix product
+            prefix *= nums[i]  # Update prefix product for the next element
+
+        # Compute suffix products and multiply with prefix products
+        suffix = 1
+        for i in range(n - 1, -1, -1):  # Traverse from right to left
+           answer[i] *= suffix  # Multiply suffix product with the stored prefix product
+           suffix *= nums[i]  # Update suffix product for the next element
+
+        return answer
+```
    
