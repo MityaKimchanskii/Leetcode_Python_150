@@ -225,4 +225,92 @@ class Solution:
 
         return answer
 ```
+
+14. Gas Station
+   There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+
+    You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with     an empty tank at one of the gas stations.
+
+    Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise     return -1. If there exists a solution, it is guaranteed to be unique.
+
+```python
+
+    class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        
+        current_gas = 0
+        start = 0
+
+        for i in range(len(gas)):
+            current_gas += gas[i] - cost[i]
+
+            if current_gas < 0:
+                current_gas = 0
+                start = i + 1
+        
+        return start
+```
+
+15. Candy
+   There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.
+    You are giving candies to these children subjected to the following requirements:
+    Each child must have at least one candy.
+    Children with a higher rating get more candies than their neighbors.
+    Return the minimum number of candies you need to have to distribute the candies to the children.
+
+```python
+    class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        n = len(ratings)
+        total_candies = n
+        i = 1
+
+        while i < n:
+            if ratings[i] == ratings[i - 1]:
+                i += 1
+                continue
+
+            current_peak = 0
+            while i < n and ratings[i] > ratings[i - 1]:
+                current_peak += 1
+                total_candies += current_peak
+                i += 1
+            
+            if i == n:
+                return total_candies
+
+            current_valley = 0
+            while i < n and ratings[i] < ratings[i - 1]:
+                current_valley += 1
+                total_candies += current_valley
+                i += 1
+
+            total_candies -= min(current_peak, current_valley)
+
+        return total_candies
+    
+```
+
+but i like this one
+
+```python
+
+    class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        n = len(ratings)
+        candies = [1] * n 
+
+        for i in range(1, n):
+            if ratings[i] > ratings[i-1]:
+                candies[i] = candies[i-1] + 1
+
+        for i in range(n-2, -1, -1):
+            if ratings[i] > ratings[i+1]:
+                candies[i] = max(candies[i], candies[i+1] + 1)
+        
+        return sum(candies)
+
+```
    
