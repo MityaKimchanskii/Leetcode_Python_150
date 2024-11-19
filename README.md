@@ -45,7 +45,7 @@ class Solution:
    
 ```python
 
-    class Solution:
+class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         
         i = 0 
@@ -90,7 +90,7 @@ class Solution:
 
 ```python
 
-    class Solution:
+class Solution:
     def canJump(self, nums: List[int]) -> bool:
         jump = 0
 
@@ -115,7 +115,7 @@ class Solution:
 
 ```python
 
-    class Solution:
+class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
         max_reach = nums[0]
@@ -143,7 +143,7 @@ class Solution:
 
 ```python
 
-    class Solution:
+class Solution:
     def hIndex(self, citations: List[int]) -> int:
         
         n = len(citations)
@@ -165,7 +165,7 @@ class Solution:
 
 ```python
 
-    class RandomizedSet:
+class RandomizedSet:
 
     def __init__(self):
         self.lst = []
@@ -205,7 +205,7 @@ class Solution:
 
 ```python
 
-    class Solution:
+class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         
         n = len(nums)
@@ -235,7 +235,7 @@ class Solution:
 
 ```python
 
-    class Solution:
+class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         if sum(gas) < sum(cost):
             return -1
@@ -261,7 +261,7 @@ class Solution:
     Return the minimum number of candies you need to have to distribute the candies to the children.
 
 ```python
-    class Solution:
+class Solution:
     def candy(self, ratings: List[int]) -> int:
         n = len(ratings)
         total_candies = n
@@ -297,7 +297,7 @@ but i like this one
 
 ```python
 
-    class Solution:
+class Solution:
     def candy(self, ratings: List[int]) -> int:
         n = len(ratings)
         candies = [1] * n 
@@ -330,7 +330,7 @@ but i like this one
     0 <= height[i] <= 105
 
 ```python
-    class Solution:
+class Solution:
     def trap(self, height: List[int]) -> int:
         if not height or len(height) < 3:
             return 0
@@ -363,8 +363,49 @@ but i like this one
 ```
 
 17. Roman to integer
-   
+    Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+    Symbol       Value
+    I             1
+    V             5
+    X             10
+    L             50
+    C             100
+    D             500
+    M             1000
+    For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+    Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we         subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+    I can be placed before V (5) and X (10) to make 4 and 9. 
+    X can be placed before L (50) and C (100) to make 40 and 90. 
+    C can be placed before D (500) and M (1000) to make 400 and 900.
+    Given a roman numeral, convert it to an integer.
+
 ```python
-    
+
+class Solution:
+    def romanToInt(self, s: str) -> int:
+
+        roman_to_int = { 
+            'I': 1, 'V': 5, 'X': 10, 'L': 50, 
+            'C': 100, 'D': 500, 'M': 1000
+        }
+
+        total = 0
+        prev_value = 0
+
+        for c in reversed(s):
+            current_value = roman_to_int[c]
+
+            if current_value < prev_value:
+                total -= current_value
+            else: 
+                total += current_value
+
+            prev_value = current_value
+        
+        return total
+
 ```  
 
