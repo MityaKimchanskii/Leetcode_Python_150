@@ -417,7 +417,6 @@ class Solution:
 ```python
 
 class Solution:
-    class Solution:
     def intToRoman(self, num: int) -> str:
         roman_numerals = [
             (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
@@ -435,4 +434,43 @@ class Solution:
         return ''.join(result)
 
 ```  
+
+18. Length of Last Word
+    Given a string s consisting of words and spaces, return the length of the last word in the string.
+    A word is a maximal substring consisting of non-space characters only.
+
+```python
+
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+
+        # Strip leading and trailing spaces and remove punctuation at the end of the string
+        # s = s.rstrip(string.punctuation)
+
+        words = s.strip().split()
+
+        return len(words[-1]) if words else 0
+
+```
+ 
+   but better to use loop on the interview
+
+```python
+
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+
+        end = len(s) - 1
+
+        while s[end] == " ":
+            end -= 1
+
+        start = end
+        
+        while start >= 0 and s[start] != ' ':
+            start -= 1
+        
+        return end - start
+
+```
 
