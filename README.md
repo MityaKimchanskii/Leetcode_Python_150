@@ -410,8 +410,8 @@ class Solution:
 ```
 
 18. Integer to Roman
+    
     Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
-
     Given an integer, convert it to a Roman Numeral.
 
 ```python
@@ -435,7 +435,8 @@ class Solution:
 
 ```  
 
-18. Length of Last Word
+19. Length of Last Word
+    
     Given a string s consisting of words and spaces, return the length of the last word in the string.
     A word is a maximal substring consisting of non-space characters only.
 
@@ -452,8 +453,8 @@ class Solution:
         return len(words[-1]) if words else 0
 
 ```
- 
-   but better to use loop on the interview
+
+   But better to use loop on the interview
 
 ```python
 
@@ -474,3 +475,23 @@ class Solution:
 
 ```
 
+20. Longest prefix
+    Write a function to find the longest common prefix string amongst an array of strings.
+    If there is no common prefix, return an empty string "".
+
+```python
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        res = ''               # Initialize result as an empty string
+        strs = sorted(strs)    # Sort the list of strings lexicographically
+
+        for i in range(len(strs[0])):    # Loop through each character in the first string
+            if strs[0][i] != strs[-1][i]:  # Compare character from the first and last string
+                return res  # If mismatch occurs, return the current common prefix
+        
+            res += strs[0][i]   # Add the common character to the result
+    
+        return res   # Return the final longest common prefix
+   
+```
