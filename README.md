@@ -495,3 +495,95 @@ class Solution:
         return res   # Return the final longest common prefix
    
 ```
+
+21. Reverse words in a String
+    Given an input string s, reverse the order of the words.
+    A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+    Return a string of the words in reverse order concatenated by a single space.
+    Note that s may contain leading or trailing spaces or multiple spaces between two words.
+    The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+
+```python
+# simple solution
+# strip() remove leading and spaces
+# split() create array of words
+# [::-1] reverse array
+# ' '.join join words into a sentence
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        new_string = ' '.join(s.strip().split()[::-1])
+
+        return new_string
+```
+
+22. Zizag Conversion
+    The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this:
+    (you may want to display this pattern in a fixed font for better legibility)
+
+    P   A   H   N
+    A P L S I I G
+    Y   I   R
+    And then read line by line: "PAHNAPLSIIGYIR"
+
+    Write the code that will take a string and make this conversion given a number of rows:
+
+    string convert(string s, int numRows);
+
+```python
+
+def convert(s: str, numRows: int) -> str:
+    if numRows == 1 or numRows >= len(s):
+        return s  # No zigzag needed if only one row or string is too short
+    
+    # Create an array of strings for each row
+    rows = [""] * numRows
+    current_row = 0
+    going_down = False
+    
+    # Traverse the string, placing each character in the appropriate row
+    for char in s:
+        rows[current_row] += char  # Add character to the current row
+        # Change direction at the top or bottom of the zigzag
+        if current_row == 0 or current_row == numRows - 1:
+            going_down = not going_down
+        # Move up or down
+        current_row += 1 if going_down else -1
+    
+    # Combine all rows into one string
+    return "".join(rows)
+
+```
+23. Find the Index of the First Occurence in a String
+    
+    Given two strings needle and haystack, return the index of the first
+    occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+```python
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        return haystack.find(needle)
+
+```
+or 
+
+```python
+
+class Solution:
+    def strStr(haystack: str, needle: str) -> int:
+        # Check if the needle is an empty string
+        if not needle:
+            return 0  # The empty string is considered to be found at index 0 of any string
+    
+        # Loop through the haystack up to the point where the remaining characters are enough to compare with the needle
+        for i in range(len(haystack) - len(needle) + 1):
+            # Check if the substring of haystack starting at index i matches the needle
+            if haystack[i:i + len(needle)] == needle:
+                return i  # Return the starting index of the first occurrence of the needle
+    
+        # If no match is found, return -1
+        return -1
+
+```
