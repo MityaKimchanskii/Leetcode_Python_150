@@ -587,3 +587,86 @@ class Solution:
         return -1
 
 ```
+
+24. Text Justification
+    
+    Given an array of strings words and a width maxWidth, format the text such that each line has
+    exactly maxWidth characters and is fully (left and right) justified.
+
+    You should pack your words in a greedy approach; that is, pack as many words as you can in each line.
+    Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
+
+    Extra spaces between words should be distributed as evenly as possible. 
+    If the number of spaces on a line does not divide evenly between words, 
+    the empty slots on the left will be assigned more spaces than the slots on the right.
+
+    For the last line of text, it should be left-justified, and no extra space is inserted between words.
+
+    Note:
+
+    A word is defined as a character sequence consisting of non-space characters only.
+    Each word's length is guaranteed to be greater than 0 and not exceed maxWidth.
+    The input array words contains at least one word.
+
+```python
+
+class Solution:
+    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+        res, line, width = [], [], 0
+
+        for w in words: 
+            if width + len(w) + len(line) > maxWidth:
+                for i in range(maxWidth - width): 
+                    line[i % (len(line) - 1 or 1)] += ' '
+                res, line, width = res + [''.join(line)], [], 0
+            line += [w]
+            width += len(w)
+
+        return res + [' '.join(line).ljust(maxWidth)]
+
+```
+25. Valid Palindrome
+    
+    A phrase is a palindrome if, after converting all uppercase letters into
+    lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.
+    Alphanumeric characters include letters and numbers.
+    Given a string s, return true if it is a palindrome, or false otherwise.
+
+```python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        newStr = ''
+
+        for char in s:
+            if char.isalnum():
+                newStr += char.lower()
+
+        return newStr == newStr[::-1]
+```
+or 
+
+```python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        l = 0           # left
+        r = len(s) - 1  # right
+        
+        while l < r:
+            while l < r and not self.alnum(s[l]):
+                l += 1
+            while l < r and not self.alnum(s[r]):
+                r -= 1
+                
+            if s[l].lower() != s[r].lower():
+                return False
+            l += 1
+            r -= 1
+            
+        return True
+
+
+    def alnum(self, c) -> bool:
+        return (ord('A') <= ord(c) <= ord('Z') or
+                ord('a') <= ord(c) <= ord('z') or
+                ord('0') <= ord(c) <= ord('9'))
+```
