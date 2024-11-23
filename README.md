@@ -670,3 +670,117 @@ class Solution:
                 ord('a') <= ord(c) <= ord('z') or
                 ord('0') <= ord(c) <= ord('9'))
 ```
+26. Is Subsequence
+    
+    Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+    A subsequence of a string is a new string that is formed from the original string by
+    deleting some (can be none) of the characters without disturbing the relative
+    positions of the remaining characters. (i.e., "ace" is a
+    subsequence of "abcde" while "aec" is not).
+    
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i, j = 0, 0
+
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+        
+        return i == len(s)
+```
+27. Two Sum II - Input Array is Sorted
+    
+    Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order,
+    find two numbers such that they add up to a specific target number. 
+    Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+    Return the indices of the two numbers, index1 and index2, 
+    added by one as an integer array [index1, index2] of length 2.
+    The tests are generated such that there is exactly one solution. You may not use the same element twice.
+    Your solution must use only constant extra space.
+    
+```python
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        left = 0
+        right = len(numbers) - 1
+
+        while left < right:
+            total = numbers[left] + numbers[right]
+
+            if total == target:
+                return [left + 1, right + 1]
+            elif total > target:
+                right -= 1
+            else: 
+                left += 1
+
+```
+
+28. Container With Most Water
+    
+    You are given an integer array height of length n. There are n vertical
+    lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+    Find two lines that together with the x-axis form a container, such that the container contains the most water.
+    Return the maximum amount of water a container can store.
+    Notice that you may not slant the container.
+    
+```python
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        max_water = 0
+        left = 0
+        right = len(height) - 1
+
+        while left < right:
+            max_water = max(max_water, (right - left) * min(height[left], height[right]))
+
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
+        
+        return max_water
+
+```
+
+29. 3Sum
+    
+    Given an integer array nums, return all the triplets [nums[i], nums[j],
+    nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+    Notice that the solution set must not contain duplicate triplets.
+    
+```python
+
+    class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        answer = []
+        for i in range(len(nums) - 2):
+            if nums[i] > 0:
+                break
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            l = i + 1
+            r = len(nums) - 1
+            while l < r:
+                total = nums[i] + nums[l] + nums[r]
+                if total < 0:
+                    l += 1
+                elif total > 0:
+                    r -= 1
+                else:
+                    triplet = [nums[i], nums[l], nums[r]]
+                    answer.append(triplet)
+                    while l < r and nums[l] == triplet[1]:
+                        l += 1
+                    while l < r and nums[r] == triplet[2]:
+                        r -= 1
+        return answer
+
+```
+
+
